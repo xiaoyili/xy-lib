@@ -1,4 +1,4 @@
 xy-lib
 ======
 
-my own common library
+My own common library, paritially borrowed from Turian's repo.
