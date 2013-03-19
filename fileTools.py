@@ -1,6 +1,8 @@
 __author__ = 'eric'
 
-import os, sys
+import os
+import sys
+
 
 def open_file(file_path, mode='r'):
     '''
@@ -45,6 +47,24 @@ def load_pickle(file_path):
     return data
 
 
+def load_yaml(file_path):
+    '''
+    load yaml file
+    @param file_handle:
+    @return: data
+    '''
+    if file_path[-5:] == ".yaml":
+        file_handle = open_file(file_path)
+    else:
+        print >> sys.stderr, "WARNING: unknown pickle file type."
+
+    import yaml
+
+    data = yaml.load(file_handle)
+    file_handle.close()
+    return data
+
+
 def extractZip(file_path):
     '''
     unzip to the current folder
@@ -74,7 +94,7 @@ def recur_get_filelist(dir, suffix='*', shuffle=False):
             if suffix == '*':
                 all.append(os.path.join(root, f))
             else:
-                if f.lower().endswith('.'+ suffix.lower()):
+                if f.lower().endswith('.' + suffix.lower()):
                     all.append(os.path.join(root, f))
     if shuffle:
         import random
