@@ -14,3 +14,26 @@ def item_count(l, name="value"):
     s.sort()
     s.reverse()
     return [{name: i[1], "count": i[0]} for i in s]
+
+
+
+def chop_list(args, lengths):
+    """
+    Chopping list into tuples of particular lengths.
+    If a tuple has length "0", return a single item.
+
+    >>> chop_list(range(7), (0,3,1,2))
+    [0, (1, 2, 3), (4,), (5, 6)]
+    """
+    r = []
+    idx = 0
+    for l in lengths:
+        if l == 0:
+            r.append(args[idx])
+            idx += 1
+        else:
+            r.append(tuple(args[idx:idx+l]))
+            idx += l
+    assert idx == len(args)
+    assert len(r) == len(lengths)
+    return r

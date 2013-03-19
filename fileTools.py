@@ -53,7 +53,7 @@ def load_yaml(file_path):
     @param file_handle:
     @return: data
     '''
-    if file_path[-5:] == ".yaml":
+    if file_path[-5:].lower() == ".yaml":
         file_handle = open_file(file_path)
     else:
         print >> sys.stderr, "WARNING: unknown pickle file type."
@@ -62,6 +62,17 @@ def load_yaml(file_path):
 
     data = yaml.load(file_handle)
     file_handle.close()
+    return data
+
+
+def load_mat(file_path):
+    data = []
+    if file_path[-4:].lower() == ".mat":
+        import scipy.io
+
+        data = scipy.io.loadmat(file_path)
+    else:
+        print >> sys.stderr, "WARNING: unknown mat file type."
     return data
 
 
