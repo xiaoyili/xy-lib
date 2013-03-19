@@ -5,7 +5,9 @@ import math
 
 DEFAULT_SANITY_CHECK_EPSILON = 1e-6
 
+
 def sign(x): 1 if x >= 0 else -1
+
 
 def floateq(a, b, epsilon=DEFAULT_SANITY_CHECK_EPSILON):
     """
@@ -63,6 +65,15 @@ def logistic(x):
     @todo: WRITEME
     """
     return 1. / (1 + math.exp(-x))
+
+
+def cross_entropy(p):
+    '''
+    cross entropy
+    @param p:
+    @return:
+    '''
+    return -p * numpy.log2(p) - (1 - p) * numpy.log2(1 - p)
 
 
 def roof(f):
@@ -189,7 +200,6 @@ class RandSampling:
 
 
 if __name__ == '__main__':
-
     # === test random sampling ===
     # keys = "ABC"
     # weights = [1., 3., 2.]

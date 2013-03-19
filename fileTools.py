@@ -4,9 +4,9 @@ import os
 import sys
 
 
-def open_file(file_path, mode='r'):
+def open_CompressedFile(file_path, mode='r'):
     '''
-    Open file in various type
+    Open file in gz or bz2
 
     @param file_path:
     @param mode: r, rt, rb, w, wt, wb
@@ -26,7 +26,8 @@ def open_file(file_path, mode='r'):
 
         return bz2.open(file_path, mode)
     else:
-        return open(file_path, mode)
+        print >> sys.stderr, "WARNING: unknown type of the compressed file."
+        return False
 
 
 def load_pickle(file_path):
