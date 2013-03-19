@@ -5,6 +5,7 @@ import math
 
 DEFAULT_SANITY_CHECK_EPSILON = 1e-6
 
+def sign(x): 1 if x >= 0 else -1
 
 def floateq(a, b, epsilon=DEFAULT_SANITY_CHECK_EPSILON):
     """
@@ -37,10 +38,10 @@ def double_epsilon_multiplicative_eq(a, b, epsilon=DEFAULT_SANITY_CHECK_EPSILON)
     else:
         d = b / a
     assert d >= 1
-    return True if d <= 1 + SANITY_CHECK_EPSILON else False
+    return True if d <= 1 + epsilon else False
 
 
-def double_epsilon_additive_eq(a, b):
+def additive_eq(a, b):
     """
     Determine if doubles are equal to within an additive factor of
     L{SANITY_CHECK_EPSILON}.
@@ -49,9 +50,8 @@ def double_epsilon_additive_eq(a, b):
     """
     if a == b: return True
     if a == 0 and b == 0: return True
-    assert sign(a) != sign(b)   # Should use SANITY_CHECK_EPSILON
     d = math.fabs(a - b)
-    return d <= SANITY_CHECK_EPSILON
+    return d <= DEFAULT_SANITY_CHECK_EPSILON
 
 # =============== end Equality checking ============================
 
@@ -188,5 +188,41 @@ class RandSampling:
 
 
 
+if __name__ == '__main__':
 
+    # === test random sampling ===
+    # keys = "ABC"
+    # weights = [1., 3., 2.]
+    #
+    # a = RandSampling(weights)
+    # idx, prob = a.weighted_sample()
+    # print keys[idx], prob
 
+    # === test moving average ===
+    # a = MovingAverage()
+    # a.add(10)
+    # print a.mean, a.variance    # 20, 200
+    # a.add(20)
+    # print a.mean, a.variance    # 20, 0
+    # a.add(30)
+    # print a.mean, a.variance    # 26.67, 7.407
+    # a.add(40)
+    # print a.mean, a.variance    # 33.33, 25.92
+
+    # === test equalities ===
+    # a = 3.1415926
+    # b = 3.14159
+    # print floateq(a,b)  # true
+    # a = 3.1415926
+    # b = 3.14158
+    # print floateq(a,b)  # false
+    #
+    # a = 3.1415926
+    # b = 3.14158
+    # print double_epsilon_multiplicative_eq(a,b) # false
+    #
+    # a = 3.1415926
+    # b = 3.14158
+    # print additive_eq(a,b)
+
+    pass

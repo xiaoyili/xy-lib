@@ -53,3 +53,34 @@ def print_timing(func):
 
 def gmtimestr():
     return time.strftime("%Y-%m-%d_%H-%M-%S", time.gmtime())
+
+
+class sysArgs:
+    '''
+    class argument handler
+    '''
+
+    def __init__(self, argv=None, description='None'):
+        if not len(argv):
+            print 'Please check usage by: \'-h\' or \'--help\' '
+            return
+
+        import argparse
+
+        self.parser = argparse.ArgumentParser(description=description)
+
+    def add_args(self, label='-a', type=int, desc='sample option', default=[0]):
+        self.parser.add_argument(label, type=type, help=desc, nargs='+', default=default)
+
+
+    def get_args(self):
+        return self.parser.parse_args()
+
+
+
+if __name__ == '__main__':
+    import sys
+    a = sysArgs(sys.argv[1:], 'this is a sample')
+    a.add_args()
+    args = a.get_args()
+    print args.a[0]
