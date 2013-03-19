@@ -14,6 +14,31 @@ import memory
 __initrealtime = os.times()[4]
 
 
+def runcmd(args, input=None):
+    """
+    Split args into a list, run this command, and return its output.
+    Raise RuntimeError if the command does not return 0.
+    @note: This function will not work if args contains pipes |
+    @param input: If this exists, it will be fed as stdin
+    """
+    import subprocess
+    #    print args
+    import string
+
+    if input == None:
+        stdin = None
+    else:
+        stdin = subprocess.PIPE
+    proc = subprocess.Popen(string.split(args), stdout=subprocess.PIPE, stdin=stdin)
+    #    proc = subprocess.Popen(string.split(args), stdout=subprocess.PIPE)
+    output = proc.communicate(input=input)[0]
+    if proc.returncode != 0:
+        import exceptions
+
+        raise exceptions.RuntimeError
+    return output
+
+
 def sys_stats():
     """
     Return a string of statistics:
@@ -77,10 +102,18 @@ class sysArgs:
         return self.parser.parse_args()
 
 
-
 if __name__ == '__main__':
-    import sys
-    a = sysArgs(sys.argv[1:], 'this is a sample')
-    a.add_args()
-    args = a.get_args()
-    print args.a[0]
+
+    # === test sysArgs ===
+    # import sys
+    #
+    # a = sysArgs(sys.argv[1:], 'this is a sample')
+    # a.add_args()
+    # args = a.get_args()
+    # print args.a[0]
+
+    # === test runcmd() ===
+    # print runcmd('ls -al')
+
+
+    pass
