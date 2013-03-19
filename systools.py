@@ -1,5 +1,5 @@
 '''
-based on Turian's
+expanded based on Turian's
 '''
 
 import os
