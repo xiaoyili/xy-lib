@@ -116,7 +116,7 @@ if __name__ == '__main__':
     # print tr_set.shape, va_set.shape, te_set.shape
     # print tr_label
 
-    all_fold = get_N_fold(a)
+    all_fold = get_N_fold(a,n_fold=10)
 
     for fold in all_fold:
         train_set, valid_set, test_set = fold
