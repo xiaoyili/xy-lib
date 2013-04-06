@@ -89,7 +89,7 @@ def Z_normalize(np_mat):
     # Z normalization
     mu = numpy.mean(np_mat, axis=0)
     sigma = numpy.std(np_mat, axis=0)
-    return (data - mu) / (sigma + 1e-8)
+    return (np_mat - mu) / (sigma + 1e-8)
 
 
 def whiten(X, fudge=1E-18):
